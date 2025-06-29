@@ -10,7 +10,6 @@ https://task-manager-8h6hpy7sd-karans-projects-33ac8de6.vercel.app/
 
 ## Features
 
-Features
 1. Add, Edit & Delete Tasks - Easily create new tasks, update existing ones, and remove completed or unwanted tasks.
 
 2. Advanced Filtering - Filter tasks by Status (Todo, In Progress, Done), Tags, and Due Date (e.g., Today, This Week).
