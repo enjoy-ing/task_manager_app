@@ -6,7 +6,7 @@ Users can create, view, edit, filter, sort, and persist tasks directly in the br
 ---
 ## Live Demo
 
-[🔗 [View Live on Vercel](https://your-vercel-url.vercel.app)](https://task-manager-8h6hpy7sd-karans-projects-33ac8de6.vercel.app/)
+https://your-vercel-url.vercel.app)](https://task-manager-8h6hpy7sd-karans-projects-33ac8de6.vercel.app/
 
 ## Features
 
