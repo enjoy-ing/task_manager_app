@@ -10,12 +10,18 @@ https://task-manager-8h6hpy7sd-karans-projects-33ac8de6.vercel.app/
 
 ## Features
 
-- Add/Edit/Delete tasks
-- Filter by Status, Tags, and Due Date
-- Sort by Priority, Due Date, or Creation Date
-- Export/Import tasks as JSON
-- Fully responsive design
-- Persistent storage using `localStorage`
+Features
+1. Add, Edit & Delete Tasks - Easily create new tasks, update existing ones, and remove completed or unwanted tasks.
+
+2. Advanced Filtering - Filter tasks by Status (Todo, In Progress, Done), Tags, and Due Date (e.g., Today, This Week).
+
+3. Sorting Options - Sort tasks by Priority, Due Date, or Creation Date to keep your workflow organized.
+
+4. Export / Import as JSON - Backup your tasks or transfer them across browsers using JSON export and import.
+
+5. Responsive Design - A clean and responsive UI that works across mobile, tablet, and desktop.
+
+6. Persistent Storage - All tasks are saved in the browser using localStorage and persist across sessions.
 
 ---
 
