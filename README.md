@@ -31,10 +31,7 @@ https://task-manager-8h6hpy7sd-karans-projects-33ac8de6.vercel.app/
 - [React Context](https://reactjs.org/docs/context.html)
 - [FileSaver.js](https://www.npmjs.com/package/file-saver)
 ---
-
-## Installation 
-```bash git clone https://github.com/enjoy-ing/task_manager_app.git cd task_manager_app npm install npm run dev ```
-Visit http://localhost:3000 to view the application.
+<pre> ## Installation ```bash git clone https://github.com/enjoy-ing/task_manager_app.git cd task_manager_app npm install npm run dev ``` </pre>
 
 ## Deployment on Vercel
 To deploy the project to Vercel:
