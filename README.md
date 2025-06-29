@@ -19,7 +19,7 @@ https://task-manager-8h6hpy7sd-karans-projects-33ac8de6.vercel.app/
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - [Next.js 14](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
@@ -35,3 +35,10 @@ npm install
 npm run dev
 
 Visit http://localhost:3000 to view the application.
+
+## Deployment on Vercel
+To deploy the project to Vercel:
+Go to https://vercel.com/ and sign in with your GitHub account.
+Click "Add New Project" and import the task_manager_app repository.
+Use the default settings (Next.js is detected automatically).
+Click "Deploy".
