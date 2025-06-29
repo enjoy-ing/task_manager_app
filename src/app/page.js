@@ -1,103 +1,102 @@
-import Image from "next/image";
+"use client";
+import TaskList from '../components/TaskList';
+import FilterBar from '../components/FilterBar';
+import { useTasks } from '../context/TaskContext';
+import { useMemo, useState } from 'react';
+import { saveAs } from 'file-saver';
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+export default function HomePage() {
+  const { tasks, addTask, updateTask, deleteTask } = useTasks();
+  const [filters, setFilters] = useState({ status: '', tag: '', due: '', sort: 'createdAt' });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  const filteredTasks = useMemo(() => {
+    return tasks
+      .filter((task) => (filters.status ? task.status === filters.status : true))
+      .filter((task) => (filters.tag ? task.tags.toLowerCase().includes(filters.tag.toLowerCase()) : true))
+      .filter((task) => {
+        if (filters.due === 'today') {
+          const today = new Date().toISOString().slice(0, 10);
+          return task.dueDate === today;
+        }
+        if (filters.due === 'week') {
+          const now = new Date();
+          const weekFromNow = new Date();
+          weekFromNow.setDate(now.getDate() + 7);
+          return task.dueDate >= now.toISOString().slice(0, 10) && task.dueDate <= weekFromNow.toISOString().slice(0, 10);
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        if (filters.sort === 'priority') {
+          const priorities = { Low: 1, Medium: 2, High: 3 };
+          return priorities[b.priority] - priorities[a.priority];
+        }
+        return new Date(a[filters.sort]) - new Date(b[filters.sort]);
+      });
+  }, [tasks, filters]);
+
+  const handleExport = () => {
+  const data = JSON.stringify(tasks, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  saveAs(blob, "tasks.json");
+  };
+
+  const handleImport = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const imported = JSON.parse(event.target.result);
+        if (Array.isArray(imported)) {
+          imported.forEach((task) => addTask(task));
+        }
+      } catch (err) {
+        alert("Invalid JSON file.");
+      }
+    };
+    reader.readAsText(file);
+  };
+
+return (
+  <div className="space-y-6">
+    {/* Export/Import Panel */}
+    <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <h2 className="text-lg font-semibold text-gray-800">Manage Your Tasks</h2>
+      <div className="flex flex-wrap gap-4">
+        <button
+          onClick={handleExport}
+          className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          Export Tasks
+        </button>
+
+        <label className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition">
+          Import Tasks
+          <input
+            type="file"
+            accept=".json"
+            onChange={handleImport}
+            className="hidden"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </label>
+      </div>
     </div>
-  );
+
+    {/* Filter Bar */}
+    <div className="bg-white border rounded-lg shadow-sm p-4">
+      <FilterBar filters={filters} setFilters={setFilters} />
+    </div>
+
+    {/* Task List */}
+    <div className="bg-white border rounded-lg shadow-sm p-4">
+      <TaskList
+        tasks={filteredTasks}
+        onUpdate={updateTask}
+        onDelete={deleteTask}
+      />
+    </div>
+  </div>
+);
+
 }
