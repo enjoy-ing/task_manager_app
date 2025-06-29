@@ -4,11 +4,11 @@ A frontend-only task manager built with Next.js and Tailwind CSS.
 Users can create, view, edit, filter, sort, and persist tasks directly in the browser using `localStorage`.
 
 ---
-## 🌐 Live Demo
+## Live Demo
 
 [🔗 [View Live on Vercel](https://your-vercel-url.vercel.app)](https://task-manager-8h6hpy7sd-karans-projects-33ac8de6.vercel.app/)
 
-## 🚀 Features
+## Features
 
 - Add/Edit/Delete tasks
 - Filter by Status, Tags, and Due Date
