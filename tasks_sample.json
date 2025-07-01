@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Assignment 1",
+    "description": "",
+    "dueDate": "2025-06-30",
+    "priority": "High",
+    "tags": "ec101",
+    "status": "In Progress",
+    "id": 1751218915745,
+    "createdAt": "2025-06-29T17:41:55.745Z"
+  },
+  {
+    "title": "Assignment 2",
+    "description": "Extras",
+    "dueDate": "2025-07-11",
+    "priority": "Low",
+    "tags": "design, extra",
+    "status": "Todo",
+    "id": 1751218945794,
+    "createdAt": "2025-06-29T17:42:25.794Z"
+  },
+  {
+    "title": "Assignment 3",
+    "description": "",
+    "dueDate": "2025-07-05",
+    "priority": "Low",
+    "tags": "ug, sem",
+    "status": "Todo",
+    "id": 1751218971791,
+    "createdAt": "2025-06-29T17:42:51.791Z"
+  },
+  {
+    "title": "Assignment 4",
+    "description": "make model",
+    "dueDate": "2025-06-29",
+    "priority": "High",
+    "tags": "college",
+    "status": "Done",
+    "id": 1751220295596,
+    "createdAt": "2025-06-29T18:04:55.596Z"
+  }
+]
